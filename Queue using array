@@ -1,0 +1,75 @@
+#include <stdio.h>
+
+void enqueue(int data[], int *last, int value, int size) {
+    if (*last >= size - 1) { 
+        printf("Queue is full\n");
+    } else {
+        *last += 1;
+        data[*last] = value;
+        printf("Enqueued: %d\n", value);
+    }
+}
+
+void dequeue(int data[], int *first, int *last) {
+    if (*first > *last) {  
+        printf("Queue is empty\n");
+    } else {
+        printf("Dequeued: %d\n", data[*first]);
+        *first += 1;
+    }
+}
+
+void display(int data[], int *first, int *last) {
+    if (*first > *last) {  
+        printf("Queue is empty\nAdd an element to display\n");
+    } else {
+        printf("Queue elements: ");
+        for (int i = *first; i <= *last; i++) {
+            printf("%d ", data[i]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int last = -1;
+    int first = 0;
+    int size = 5;
+    int queue[size];
+    int choice, value;
+
+    while (1) {
+        printf("\nQueue Operations:\n");
+        printf("1. Enqueue\n");
+        printf("2. Dequeue\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value to enqueue: ");
+                scanf("%d", &value);
+                enqueue(queue, &last, value, size);
+                break;
+
+            case 2:
+                dequeue(queue, &first, &last);
+                break;
+
+            case 3:
+                display(queue, &first, &last);
+                break;
+
+            case 4:
+                printf("Exiting...\n");
+                return 0;
+
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+
+    return 0;
+}
